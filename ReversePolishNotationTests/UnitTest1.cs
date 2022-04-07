@@ -10,7 +10,7 @@ namespace ReversePolishNotationTests
         [TestMethod]
         public void AddTest()
         {
-            int res = ReversePolishNotationReader.ReadPolishNotation("4 3 +");
+            double res = ReversePolishNotationReader.ReadPolishNotation("4 3 +");
 
             Assert.AreEqual(res,7);
         }
@@ -18,7 +18,7 @@ namespace ReversePolishNotationTests
         [TestMethod]
         public void MultipleOperationsTest()
         {
-            int res = ReversePolishNotationReader.ReadPolishNotation("5 1 2 + 4 * + 3 -");
+            double res = ReversePolishNotationReader.ReadPolishNotation("5 1 2 + 4 * + 3 -");
 
             Assert.AreEqual(res,14);
         }
@@ -28,17 +28,45 @@ namespace ReversePolishNotationTests
         {
             Assert.ThrowsException<ArgumentException>(() =>
             {
-                int res = ReversePolishNotationReader.ReadPolishNotation("a 2 +");
+                double res = ReversePolishNotationReader.ReadPolishNotation("a 2 +");
             });
         }
         [TestMethod]
-        public void InsufficientInput()
+        public void InsufficientInputTest()
         {
             //Stack empty
             Assert.ThrowsException<InvalidOperationException>(() =>
             {
-                int res = ReversePolishNotationReader.ReadPolishNotation("1 +");
+                double res = ReversePolishNotationReader.ReadPolishNotation("1 +");
             });
+        }
+
+        [TestMethod]
+        public void PowerTest()
+        {
+            double res = ReversePolishNotationReader.ReadPolishNotation("2 4 pow");
+            Assert.AreEqual(res,16);
+        }
+
+        [TestMethod]
+        public void RootTest()
+        {
+            double res = ReversePolishNotationReader.ReadPolishNotation("4 2 root");
+            Assert.AreEqual(res,2);
+        }
+
+        [TestMethod]
+        public void ModuloTest()
+        {
+            double res = ReversePolishNotationReader.ReadPolishNotation("3 3 %");
+            Assert.AreEqual(res,0);
+        }
+
+        [TestMethod]
+        public void FactorialTest()
+        {
+            double res = ReversePolishNotationReader.ReadPolishNotation("5 !");
+            Assert.AreEqual(res,120);
         }
     }
 }
